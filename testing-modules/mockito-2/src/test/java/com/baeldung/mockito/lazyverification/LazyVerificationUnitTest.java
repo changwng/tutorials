@@ -14,6 +14,14 @@ import static org.mockito.Mockito.verify;
 public class LazyVerificationUnitTest {
 
     @Test
+public void testLazyVerification() throws Exception {
+    //VerificationCollector collector = MockitoJUnit.collector().assertLazily();
+    List mockList = mock(List.class);
+    
+    verify(mockList).add("one");
+    verify(mockList).clear();
+}
+    @Test
     public void whenLazilyVerified_thenReportsMultipleFailures() {
         VerificationCollector collector = MockitoJUnit.collector()
             .assertLazily();

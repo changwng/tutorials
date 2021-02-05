@@ -41,17 +41,29 @@ public class CustomAuthorizationRequestResolver implements OAuth2AuthorizationRe
         extraParams.putAll(req.getAdditionalParameters()); //VIP note
         extraParams.put("test", "extra");
         System.out.println("here =====================");
-        return OAuth2AuthorizationRequest.from(req).additionalParameters(extraParams).build();
+        return OAuth2AuthorizationRequest
+                 .from(req)
+                .additionalParameters(extraParams).build();
     }
 
     private OAuth2AuthorizationRequest customizeAuthorizationRequest1(OAuth2AuthorizationRequest req) {
+
         return OAuth2AuthorizationRequest.from(req).state("xyz").build();
     }
-    
+
+    /**
+     * Custom Okta Authorize Request
+     * Okta has extra optional parameters for authorization request to provide
+     * the user with more functionality. For example, idp which indicates the identity provider.
+     * @param req
+     * @return
+     */
     private OAuth2AuthorizationRequest customizeOktaReq(OAuth2AuthorizationRequest req) {
         Map<String,Object> extraParams = new HashMap<String,Object>();
         extraParams.putAll(req.getAdditionalParameters()); 
         extraParams.put("idp", "https://idprovider.com");
-        return OAuth2AuthorizationRequest.from(req).additionalParameters(extraParams).build();
+        return OAuth2AuthorizationRequest
+                .from(req)
+                .additionalParameters(extraParams).build();
     }
 }

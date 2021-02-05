@@ -44,7 +44,9 @@ public class CustomRequestSecurityConfig extends WebSecurityConfigurerAdapter {
             .oauth2Login()
             .loginPage("/oauth_login")
             .authorizationEndpoint()
-                        .authorizationRequestResolver( new CustomAuthorizationRequestResolver(clientRegistrationRepository(),"/oauth2/authorize-client"))
+                        .authorizationRequestResolver(
+                                new CustomAuthorizationRequestResolver(clientRegistrationRepository()
+                                ,"/oauth2/authorize-client"))
 
             .baseUri("/oauth2/authorize-client")
             .authorizationRequestRepository(authorizationRequestRepository())
@@ -64,10 +66,14 @@ public class CustomRequestSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> accessTokenResponseClient() {
         DefaultAuthorizationCodeTokenResponseClient accessTokenResponseClient = new DefaultAuthorizationCodeTokenResponseClient();
+        // 5. Custom Token Request
         accessTokenResponseClient.setRequestEntityConverter(new CustomRequestEntityConverter());
-        
+
+        // 토큰 핸들링하는 스타팅 포인트 이다.
         OAuth2AccessTokenResponseHttpMessageConverter tokenResponseHttpMessageConverter = new OAuth2AccessTokenResponseHttpMessageConverter();
+        // 7. Custom Token Response Handling
         tokenResponseHttpMessageConverter.setTokenResponseConverter(new CustomTokenResponseConverter());
+
         RestTemplate restTemplate = new RestTemplate(Arrays.asList(new FormHttpMessageConverter(), tokenResponseHttpMessageConverter));
         restTemplate.setErrorHandler(new OAuth2ErrorResponseErrorHandler());
         accessTokenResponseClient.setRestOperations(restTemplate);

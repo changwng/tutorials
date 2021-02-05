@@ -63,7 +63,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // additional configuration for non-Spring Boot projects
     private static List<String> clients = Arrays.asList("google", "facebook");
 
-//    @Bean
+    /***
+     * 4.1. Creating a ClientRegistrationRepository Bean
+     * @return
+     */
+    // @Bean
     public ClientRegistrationRepository clientRegistrationRepository() {
         List<ClientRegistration> registrations = clients.stream()
             .map(c -> getRegistration(c))
@@ -83,6 +87,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private Environment env;
 
+    /**
+     *
+     * 4.2. Building ClientRegistration Objects
+     * @param client
+     * @return
+     */
     private ClientRegistration getRegistration(String client) {
         String clientId = env.getProperty(CLIENT_PROPERTY_KEY + client + ".client-id");
 
