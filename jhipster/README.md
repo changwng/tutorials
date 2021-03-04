@@ -7,3 +7,6 @@ This module contains articles about JHipster.
 - [JHipster with a Microservice Architecture](https://www.baeldung.com/jhipster-microservices)
 - [Intro to JHipster](https://www.baeldung.com/jhipster)
 - [Building a Basic UAA-Secured JHipster Microservice](https://www.baeldung.com/jhipster-uaa-secured-micro-service)
+
+UAA(User Account Authorization)
+we'll explore JHipster's User Account and Authorization service

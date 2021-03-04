@@ -36,6 +36,7 @@ public class UserInfoEndpointLiveTest {
         RestAssured.given().cookie("JSESSIONID", cookieValue).get(authorizeUrl); 
         response = RestAssured.given().cookie("JSESSIONID", cookieValue).post(authorizeUrl);
         assertEquals(HttpStatus.FOUND.value(), response.getStatusCode());
+        //assertEquals(HttpStatus.OK.value(), response.getStatusCode());
         final String location = response.getHeader(HttpHeaders.LOCATION);
         final String code = location.substring(location.indexOf("code=") + 5);
 

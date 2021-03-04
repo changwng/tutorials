@@ -25,3 +25,6 @@ The application uses [Spring Boot](http://projects.spring.io/spring-boot/), so i
 
 # Viewing the running application
 To view the running application, visit [http://localhost:8080](http://localhost:8080) in your browser
+
+
+# add SpringDataRestApplication
