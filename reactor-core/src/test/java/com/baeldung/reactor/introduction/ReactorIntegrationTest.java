@@ -9,6 +9,7 @@ import reactor.core.scheduler.Schedulers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,14 +20,18 @@ public class ReactorIntegrationTest {
 
         List<Integer> elements = new ArrayList<>();
 
+        Consumer<Integer> printMultiplyBy100 = (val) -> System.out.println(val * 100);
+
         Flux.just(1, 2, 3, 4)
-                .log()
+                .log() 
                 .map(i -> {
                     System.out.println(i + ":" + Thread.currentThread());
                     return i * 2;
-                })
-                .subscribe(elements::add);
-
+                }) 
+                .doOnNext(val -> {System.out.println("Element Add: "+val);})
+                .subscribe(elements::add)
+                ;
+                
         assertThat(elements).containsExactly(2, 4, 6, 8);
     }
 
@@ -37,9 +42,10 @@ public class ReactorIntegrationTest {
         Flux.just(1, 2, 3, 4)
                 .log()
                 .map(i -> i * 2)
-                .zipWith(Flux.range(0, Integer.MAX_VALUE).log(), (one, two) -> String.format("First Flux: %d, Second Flux: %d", one, two))
+                .zipWith(Flux.range(10, Integer.MAX_VALUE-100).log(), (one, two) -> String.format("First Flux: %d, Second Flux: %d", one, two))
                 .subscribe(elements::add);
 
+                System.out.println(elements);
         assertThat(elements).containsExactly(
                 "First Flux: 2, Second Flux: 0",
                 "First Flux: 4, Second Flux: 1",
@@ -89,7 +95,7 @@ public class ReactorIntegrationTest {
     public void givenFlux_whenInParallel_thenSubscribeInDifferentThreads() throws InterruptedException {
         List<String> threadNames = new ArrayList<>();
 
-        Flux.just(1, 2, 3, 4)
+        Flux.just(1, 2, 3, 4,5)
                 .log()
                 .map(i -> Thread.currentThread().getName())
                 .subscribeOn(Schedulers.parallel())
