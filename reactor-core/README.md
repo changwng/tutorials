@@ -7,6 +7,8 @@ Create a new Mono that emits the specified item, which is captured at instantiat
 인스턴스화 시간에 캡처 된 지정된 항목을 방출하는 새 모노를 만듭니다.
 
 
+===========================>
+FluxTest랑 MonoTests 추가함
 
 ### Relevant articles
 
