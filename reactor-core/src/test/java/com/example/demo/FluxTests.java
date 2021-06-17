@@ -133,7 +133,7 @@ public class FluxTests {
         System.out.println("아직 구독 안한 상황... 데이터 전달을 하지 않는다.");
 
         flux.subscribe(value -> {
-                    System.out.println(value);
+                    System.out.println("Subs"+value);
                 },
                 null,
                 () -> {

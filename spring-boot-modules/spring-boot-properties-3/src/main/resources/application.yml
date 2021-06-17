@@ -1,5 +1,9 @@
 bael:
   root-level-property: defaultRootLevelValue
+spring:
+  profiles:
+    group:
+      multidocument-integration: multidocument-integration-extension
 ---
 spring:
   config:
@@ -11,6 +15,7 @@ spring:
     username: SA
 bael:
   property: stagingValue
+  stagingProperty: stagingPropertyValue
 ---
 application:
   servers:
